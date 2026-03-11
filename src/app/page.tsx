@@ -1,20 +1,20 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Hero } from "@/components/home/Hero";
-import { SocialProof } from "@/components/home/SocialProof";
-import { Features } from "@/components/home/Features";
-import Pricing from "@/components/home/Pricing";
-import CTA from "@/components/home/CTA";
 import { Footer } from "@/components/layout/Footer";
+import { Hero } from "@/components/sections/Hero";
+import { Preview } from "@/components/sections/Preview";
+import { Problems } from "@/components/sections/Problems";
+import { Features } from "@/components/sections/Features";
+import { CTA } from "@/components/sections/CTA";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 scroll-smooth">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 scroll-smooth flex flex-col font-sans">
       <Navbar />
-      <main>
+      <main className="flex-1 w-full overflow-hidden">
         <Hero />
-        <SocialProof />
+        <Preview />
+        <Problems />
         <Features />
-        <Pricing />
         <CTA />
       </main>
       <Footer />
