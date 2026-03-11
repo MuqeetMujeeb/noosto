@@ -82,7 +82,7 @@
   }
 
   .dark {
-    --background: 222 47% 11%;
+    --background: 270 60% 2%;
     --foreground: 0 0% 100%;
     
     --primary: 238 82% 67%;
@@ -148,5 +148,11 @@
   }
   .glow-text {
     text-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+  }
+  .text-instagram {
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 }

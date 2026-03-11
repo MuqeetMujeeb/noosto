@@ -77,8 +77,8 @@ export const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       {/* Background Gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-background to-background" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-50" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#833ab4]/15 via-background to-background" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#fd1d1d]/5 rounded-full blur-3xl opacity-50" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
@@ -99,7 +99,7 @@ export const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
-              Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary/80">24/7 Sales Machine.</span>
+              Turn your DMs into a <span className="text-instagram">24/7 Sales Machine.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
@@ -107,7 +107,7 @@ export const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
-              <button className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium text-lg hover:bg-primary/90 transition-all shadow-[0_0_40px_-10px_rgba(var(--primary),0.5)] hover:shadow-[0_0_60px_-15px_rgba(var(--primary),0.6)] hover:scale-105 active:scale-95">
+              <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95">
                 Start Selling Automatically
               </button>
               <button className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground rounded-full font-medium text-lg hover:bg-secondary/80 transition-all">
@@ -145,7 +145,7 @@ export const Hero = () => {
               {/* Chat Header */}
               <div className="bg-background/80 backdrop-blur-md pt-12 pb-4 px-6 border-b border-white/10 z-10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/30">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 flex items-center justify-center text-[#fd1d1d] border border-[#fd1d1d]/30">
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
@@ -181,7 +181,7 @@ export const Hero = () => {
                         <div
                           className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
                             msg.role === "customer"
-                              ? "bg-primary text-primary-foreground rounded-tr-sm"
+                            ? "bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-tr-sm"
                               : "bg-zinc-800 text-zinc-100 rounded-tl-sm border border-white/5"
                           }`}
                         >
@@ -194,7 +194,7 @@ export const Hero = () => {
                           {msg.text}
                           {msg.role === "bot" && msg.id === 4 && (
                             <div className="mt-2 p-2 bg-zinc-900 rounded-lg border border-white/10 flex items-center justify-center">
-                              <span className="text-primary font-medium">Pay $55.00</span>
+                              <span className="text-[#fcb045] font-medium">Pay $55.00</span>
                             </div>
                           )}
                         </div>
@@ -242,14 +242,14 @@ export const Hero = () => {
                 <div className="flex-1 bg-zinc-800/80 rounded-xl h-10 px-3 flex items-center border border-white/5">
                   <span className="text-zinc-500 text-xs">Message...</span>
                 </div>
-                <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                <div className="w-10 h-10 bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 rounded-xl flex items-center justify-center text-[#fd1d1d]">
                   <Send className="w-4 h-4 ml-0.5" />
                 </div>
               </div>
             </div>
             
             {/* Decorative blurs behind phone */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/20 blur-[100px] -z-10 rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#833ab4]/20 blur-[100px] -z-10 rounded-full" />
           </motion.div>
         </div>
       </div>

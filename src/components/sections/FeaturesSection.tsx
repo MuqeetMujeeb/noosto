@@ -12,8 +12,8 @@ const features = [
     visual: (
       <div className="mt-6 flex flex-col gap-3">
         <div className="bg-zinc-800 p-3 rounded-lg text-sm text-zinc-300 ml-auto max-w-[80%]">Does this run small? Im usually a M</div>
-        <div className="bg-primary/20 text-primary p-3 rounded-lg text-sm mr-auto max-w-[80%] border border-primary/30 flex items-start gap-2">
-          <Bot className="w-4 h-4 mt-0.5 shrink-0" />
+        <div className="bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 text-[#white] p-3 rounded-lg text-sm mr-auto max-w-[80%] border border-[#fd1d1d]/30 flex items-start gap-2">
+          <Bot className="w-4 h-4 mt-0.5 shrink-0 text-[#fd1d1d]" />
           <p>Our hoodies are true to size! A Medium should fit you perfectly, but if you want an oversized look, size up to a L.</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export const FeaturesSection = () => {
               className={`rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all overflow-hidden relative group ${feature.className}`}
             >
               <div className="relative z-10 flex flex-col h-full">
-                <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 text-[#fd1d1d] flex items-center justify-center mb-6">
                   <feature.icon className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
@@ -80,7 +80,7 @@ export const FeaturesSection = () => {
               </div>
 
               {/* Subtle hover gradient */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#fd1d1d]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
         </div>
