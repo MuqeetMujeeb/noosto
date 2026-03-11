@@ -22,16 +22,12 @@ export const Navbar = () => {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           <Link href="#product" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Product</Link>
-          <Link href="#solutions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Solutions</Link>
-          <Link href="#resources" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
-          <Link href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
+          <Link href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">How it Works</Link>
+          <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</Link>
         </div>
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/signin" className="text-sm font-medium hover:text-primary transition-colors">
-            Sign In
-          </Link>
           <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-full text-sm font-medium transition-colors shadow-sm">
             Join Waitlist
           </button>
@@ -53,15 +49,10 @@ export const Navbar = () => {
             className="absolute top-16 inset-x-0 bg-background border-b border-border/40 p-6 flex flex-col gap-4 shadow-lg md:hidden"
           >
             <Link href="#product" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Product</Link>
-            <Link href="#solutions" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
-            <Link href="#resources" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Resources</Link>
-            <Link href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
+            <Link href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>How it Works</Link>
+            <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Features</Link>
             
             <hr className="my-2 border-border/40" />
-            
-            <Link href="/signin" className="text-sm font-medium text-center hover:text-primary py-2" onClick={() => setMobileMenuOpen(false)}>
-              Sign In
-            </Link>
             <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium w-full shadow-sm" onClick={() => setMobileMenuOpen(false)}>
               Join Waitlist
             </button>

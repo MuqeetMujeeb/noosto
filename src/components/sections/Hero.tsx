@@ -1,108 +1,250 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { PlayCircle, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Send, User, Bot, RotateCcw } from "lucide-react";
+
+const messages = [
+  {
+    id: 1,
+    role: "customer",
+    text: "Hi! Is the Blue hoodie still in stock?",
+    delay: 1,
+  },
+  {
+    id: 2,
+    role: "bot",
+    text: "Yes! 3 left in XL. Want to order one?",
+    delay: 2.5,
+  },
+  {
+    id: 3,
+    role: "customer",
+    text: "Yes please!",
+    delay: 4,
+  },
+  {
+    id: 4,
+    role: "bot",
+    text: "Great! Use this link to checkout: noosto.kr/pay 🚀",
+    delay: 5.5,
+  },
+];
 
 export const Hero = () => {
-  return (
-    <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden px-6">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] opacity-50 -z-10 pointer-events-none" />
+  const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    let timeouts: NodeJS.Timeout[] = [];
+    
+    const runAnimation = () => {
+      setVisibleMessages([]);
+      setIsTyping(false);
       
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-        
-        {/* Left: Copy */}
-        <div className="flex-1 text-center md:text-left">
-          <motion.h1 
+      messages.forEach((msg) => {
+        // Show typing indicator before message appears
+        timeouts.push(
+          setTimeout(() => {
+            setIsTyping(true);
+          }, (msg.delay - 0.7) * 1000)
+        );
+
+        // Hide typing and show message
+        timeouts.push(
+          setTimeout(() => {
+            setIsTyping(false);
+            setVisibleMessages((prev) => [...prev, msg.id]);
+          }, msg.delay * 1000)
+        );
+      });
+    };
+
+    runAnimation();
+
+    return () => {
+      timeouts.forEach(clearTimeout);
+    };
+  }, [key]);
+
+  const replay = () => setKey(k => k + 1);
+
+  return (
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-50" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Text Content */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6"
+            className="flex flex-col gap-6 text-center lg:text-left"
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">
-              Customer feedback
-            </span>
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700 dark:from-indigo-400 dark:to-indigo-300">
-              made simple.
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0 leading-relaxed"
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary w-fit mx-auto lg:mx-0 border border-primary/20 text-sm font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              Noosto Chat Automation
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
+              Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">24/7 Sales Machine.</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              Stop losing sales to slow replies. Noosto automatically answers customer questions, sends payment links, and confirms orders—so you can focus on growing, not chatting.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
+              <button className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium text-lg hover:bg-primary/90 transition-all shadow-[0_0_40px_-10px_rgba(var(--primary),0.5)] hover:shadow-[0_0_60px_-15px_rgba(var(--primary),0.6)] hover:scale-105 active:scale-95">
+                Start Selling Automatically
+              </button>
+              <button className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground rounded-full font-medium text-lg hover:bg-secondary/80 transition-all">
+                See How It Works
+              </button>
+            </div>
+            
+            <div className="flex items-center justify-center lg:justify-start gap-4 mt-4 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-muted flex items-center justify-center text-xs overflow-hidden">
+                    <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=${i + 10}`} alt="avatar" width={32} height={32} />
+                  </div>
+                ))}
+              </div>
+              <p>Trusted by 500+ social sellers</p>
+            </div>
+          </motion.div>
+
+          {/* Phone Frame Illustration */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative mx-auto w-full max-w-[320px] lg:max-w-[360px] perspective-1000"
           >
-            Collect, organize, and act on user feedback in one place. Stop guessing what your users want and start building what they need.
-          </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start"
-          >
-            <button className="h-12 px-8 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 hover:scale-105 transition-all shadow-lg flex items-center justify-center w-full sm:w-auto">
-              Join Waitlist
-            </button>
-            <button className="h-12 px-8 rounded-full bg-secondary text-secondary-foreground font-medium hover:bg-secondary/80 flex items-center gap-2 transition-all w-full sm:w-auto justify-center">
-              <PlayCircle className="w-5 h-5" />
-              Watch Demo
-            </button>
+            {/* Phone Body */}
+            <div className="relative rounded-[2.5rem] bg-zinc-950 border-[8px] border-zinc-900 shadow-2xl overflow-hidden aspect-[9/19] flex flex-col">
+              {/* Dynamic Island / Notch */}
+              <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-20">
+                <div className="w-32 h-6 bg-zinc-900 rounded-b-3xl"></div>
+              </div>
+
+              {/* Chat Header */}
+              <div className="bg-zinc-950/80 backdrop-blur-md pt-12 pb-4 px-6 border-b border-white/10 z-10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/30">
+                    <Bot className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-sm">Noosto Store</h3>
+                    <p className="text-xs text-white/60 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                      Online
+                    </p>
+                  </div>
+                </div>
+                <button 
+                  onClick={replay}
+                  className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+                  title="Replay Animation"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Chat Messages */}
+              <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto bg-zinc-950/50 relative hide-scrollbar pb-6 justify-end">
+                {messages.map((msg) => (
+                  <AnimatePresence key={`msg-${key}-${msg.id}`}>
+                    {visibleMessages.includes(msg.id) && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.3, type: "spring", stiffness: 200, damping: 20 }}
+                        className={`flex ${msg.role === "customer" ? "justify-end" : "justify-start"}`}
+                      >
+                        <div
+                          className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
+                            msg.role === "customer"
+                              ? "bg-primary text-primary-foreground rounded-tr-sm"
+                              : "bg-zinc-800 text-zinc-100 rounded-tl-sm border border-white/5"
+                          }`}
+                        >
+                          {msg.role === "bot" && (
+                            <div className="flex items-center gap-1.5 mb-1 opacity-70">
+                              <Bot className="w-3 h-3" />
+                              <span className="text-[10px] font-medium uppercase tracking-wider">Automated</span>
+                            </div>
+                          )}
+                          {msg.text}
+                          {msg.role === "bot" && msg.id === 4 && (
+                            <div className="mt-2 p-2 bg-zinc-900 rounded-lg border border-white/10 flex items-center justify-center">
+                              <span className="text-primary font-medium">Pay $55.00</span>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                ))}
+
+                {/* Typing Indicator */}
+                <AnimatePresence>
+                  {isTyping && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="flex justify-start"
+                    >
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-sm px-4 py-3 border border-white/5 w-fit">
+                        <div className="flex gap-1.5 items-center">
+                          <motion.div
+                            animate={{ y: [0, -3, 0] }}
+                            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                            className="w-1.5 h-1.5 bg-zinc-400 rounded-full"
+                          />
+                          <motion.div
+                            animate={{ y: [0, -3, 0] }}
+                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                            className="w-1.5 h-1.5 bg-zinc-400 rounded-full"
+                          />
+                          <motion.div
+                            animate={{ y: [0, -3, 0] }}
+                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                            className="w-1.5 h-1.5 bg-zinc-400 rounded-full"
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Chat Input */}
+              <div className="p-3 bg-zinc-900/50 backdrop-blur-md border-t border-white/5 mx-2 mb-2 rounded-2xl flex items-center gap-2 relative z-10 bottom-0">
+                <div className="flex-1 bg-zinc-800 rounded-xl h-10 px-3 flex items-center border border-white/5">
+                  <span className="text-zinc-500 text-xs">Message...</span>
+                </div>
+                <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                  <Send className="w-4 h-4 ml-0.5" />
+                </div>
+              </div>
+            </div>
+            
+            {/* Decorative blurs behind phone */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/20 blur-[100px] -z-10 rounded-full" />
           </motion.div>
         </div>
-
-        {/* Right: Abstract animation visual */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex-1 w-full max-w-md relative"
-        >
-          {/* Decorative floating elements container */}
-          <div className="bg-card border border-border/50 rounded-2xl shadow-xl w-full p-6 space-y-4">
-            
-            <motion.div 
-              initial={{ y: 0 }}
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="flex justify-end"
-            >
-              <div className="bg-secondary/80 backdrop-blur-sm rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%] text-sm font-medium shadow-sm border border-border/30">
-                Can we export to CSV?
-              </div>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 1 }}
-              className="flex justify-start"
-            >
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
-                  <div className="w-4 h-4 bg-indigo-500 rounded-full animate-pulse" />
-                </div>
-                <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] text-sm shadow-sm border border-border/30">
-                  Logged as <span className="font-semibold text-indigo-600 dark:text-indigo-400">CSV Export Request</span>.
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 1.8, type: "spring" }}
-              className="flex justify-center pt-2"
-            >
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider">
-                <CheckCircle2 className="w-4 h-4" /> Added to Roadmap!
-              </div>
-            </motion.div>
-
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -1,10 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { Preview } from "@/components/sections/Preview";
-import { Problems } from "@/components/sections/Problems";
-import { Features } from "@/components/sections/Features";
-import { CTA } from "@/components/sections/CTA";
+import { ProblemSection } from "@/components/sections/ProblemSection";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { StepsSection } from "@/components/sections/StepsSection";
+import { CTASection } from "@/components/sections/CTASection";
 
 export default function Home() {
   return (
@@ -12,10 +12,10 @@ export default function Home() {
       <Navbar />
       <main className="flex-1 w-full overflow-hidden">
         <Hero />
-        <Preview />
-        <Problems />
-        <Features />
-        <CTA />
+        <ProblemSection />
+        <FeaturesSection />
+        <StepsSection />
+        <CTASection />
       </main>
       <Footer />
     </div>
