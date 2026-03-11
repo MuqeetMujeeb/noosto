@@ -4,31 +4,11 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Link as LinkIcon, Package, Database } from "lucide-react";
 
-const AI_EXCHANGES = [
-  {
-    user: "Does this run small? Im usually a M",
-    bot: "Our hoodies are true to size! A Medium should fit you perfectly.",
-  },
-  {
-    user: "Are there any discounts available right now?",
-    bot: "Yes! Use code WELCOME10 at checkout for 10% off your entire order today.",
-  },
-  {
-    user: "Do you ship to Canada? How long does it take?",
-    bot: "We do! Shipping typically takes 5-7 business days via standard international shipping.",
-  },
-  {
-    user: "Is the black out of stock?",
-    bot: "The black is currently sold out, but we are restocking next Tuesday!",
-  }
-];
-
 const LiveAutoReplyFeed = () => {
   const [messages, setMessages] = useState<{ id: number; text: string; sender: 'user' | 'bot' }[]>([]);
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    let index = 0;
     let isActive = true;
     let messageId = 0;
 
@@ -36,8 +16,7 @@ const LiveAutoReplyFeed = () => {
       await new Promise(r => setTimeout(r, 800));
       
       while (isActive) {
-        const userMsg = AI_EXCHANGES[index].user;
-        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: userMsg, sender: 'user' }]);
+        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: "Do you ship to Canada? How long does it take?", sender: 'user' }]);
 
         await new Promise(r => setTimeout(r, 600));
         if (!isActive) break;
@@ -47,13 +26,20 @@ const LiveAutoReplyFeed = () => {
         if (!isActive) break;
 
         setIsTyping(false);
-        const botMsg = AI_EXCHANGES[index].bot;
-        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: botMsg, sender: 'bot' }]);
+        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: "We do! Shipping typically takes 5-7 business days via standard international shipping.", sender: 'bot' }]);
+
+        await new Promise(r => setTimeout(r, 800));
+        if (!isActive) break;
+
+        setIsTyping(true);
+        await new Promise(r => setTimeout(r, 1200));
+        if (!isActive) break;
+
+        setIsTyping(false);
+        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: "Yes! Use code WELCOME10 at checkout for 10% off your entire order today.", sender: 'bot' }]);
 
         await new Promise(r => setTimeout(r, 3500));
         if (!isActive) break;
-        
-        index = (index + 1) % AI_EXCHANGES.length;
       }
     };
 
@@ -62,12 +48,13 @@ const LiveAutoReplyFeed = () => {
   }, []);
 
   return (
-    <div 
-      className="absolute -bottom-4 -right-4 w-[110%] md:w-[95%] h-[320px] rounded-tl-2xl overflow-hidden pointer-events-none" 
-      style={{ maskImage: 'linear-gradient(to bottom, transparent, black 25%, black)' }}
+    <motion.div 
+      layout
+      className="relative w-full overflow-hidden flex flex-col justify-end mt-4 min-h-[160px]" 
+      style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black)' }}
     >
       {/* Live Now Tag */}
-      <div className="absolute top-4 right-8 bg-zinc-900/90 border border-white/10 rounded-full px-2.5 py-1 flex items-center gap-2 backdrop-blur-md z-20 shadow-lg">
+      <div className="absolute top-0 right-2 bg-zinc-900/90 border border-white/10 rounded-full px-2.5 py-1 flex items-center gap-2 backdrop-blur-md z-20 shadow-lg">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -75,16 +62,16 @@ const LiveAutoReplyFeed = () => {
         <span className="text-[9px] uppercase font-bold text-emerald-500 tracking-wider">Live</span>
       </div>
 
-      <div className="absolute inset-0 p-6 flex flex-col justify-end gap-3 z-10 w-full pr-8">
+      <motion.div layout className="pt-10 flex flex-col justify-end gap-3 z-10 w-full pb-1">
         <AnimatePresence mode="popLayout" initial={false}>
           {messages.map((msg) => (
             <motion.div
               layout
               key={msg.id}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 350, damping: 30 }}
               className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-md ${
                 msg.sender === 'user' 
                   ? 'bg-zinc-800/80 border border-white/10 text-white ml-auto rounded-tr-sm' 
@@ -111,10 +98,10 @@ const LiveAutoReplyFeed = () => {
           {isTyping && (
              <motion.div
                layout
-               initial={{ opacity: 0, y: 20, scale: 0.95 }}
+               initial={{ opacity: 0, y: 10, scale: 0.95 }}
                animate={{ opacity: 1, y: 0, scale: 1 }}
-               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-               transition={{ type: "spring", stiffness: 300, damping: 30 }}
+               exit={{ opacity: 0, y: -10, scale: 0.95 }}
+               transition={{ type: "spring", stiffness: 350, damping: 30 }}
                className="bg-zinc-800/80 border border-white/10 rounded-2xl rounded-tl-sm p-3 mr-auto w-16 h-10 flex items-center justify-center gap-1 shadow-md"
              >
                <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0 }} className="w-1.5 h-1.5 bg-zinc-400 rounded-full" />
@@ -123,8 +110,8 @@ const LiveAutoReplyFeed = () => {
              </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -133,7 +120,7 @@ const features = [
     title: "AI Autoreply",
     description: "Understands natural language. It doesn't just match keywords, it understands context and nuance to provide helpful answers instantly.",
     icon: Bot,
-    className: "md:col-span-2 md:row-span-2 bg-[#0c0c0e] border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-md",
+    className: "md:col-span-2 md:row-span-2 bg-[#0c0c0e] border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-md pt-6 max-h-[450px]",
     visual: <LiveAutoReplyFeed />
   },
   {
@@ -213,12 +200,13 @@ export const FeaturesSection = () => {
         <div className="grid md:grid-cols-3 gap-4 md:grid-rows-3 min-h-[600px]">
           {features.map((feature, i) => (
             <motion.div
+              layout
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all overflow-hidden relative group ${feature.className}`}
+              className={`rounded-3xl ${feature.title === "AI Autoreply" ? "p-8 pt-6 max-h-[450px]" : "p-8"} border border-white/10 hover:border-white/20 transition-all overflow-hidden relative group flex flex-col ${feature.className}`}
             >
               <div className="relative z-10 flex flex-col h-full">
                 <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 text-[#fd1d1d] flex items-center justify-center mb-6">
@@ -228,7 +216,7 @@ export const FeaturesSection = () => {
                 <p className="text-zinc-400 text-sm leading-relaxed">{feature.description}</p>
 
                 {feature.visual && (
-                  <div className="mt-8 flex-1">
+                  <div className="mt-4 flex-1 flex flex-col justify-end">
                     {feature.visual}
                   </div>
                 )}
