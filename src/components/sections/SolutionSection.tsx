@@ -94,8 +94,8 @@ export function SolutionSection() {
           </div>
           
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent rounded-3xl -z-10 transform translate-x-4 translate-y-4" />
-            <div className="bg-card border border-border rounded-3xl p-8 shadow-xl">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#833ab4]/10 via-[#fd1d1d]/10 to-[#fcb045]/10 rounded-3xl -z-10 transform translate-x-4 translate-y-4 blur-xl" />
+            <div className="bg-card border border-border hover:border-white/20 hover:shadow-[0_0_40px_rgba(131,58,180,0.15)] transition-all duration-500 rounded-3xl p-8 shadow-xl">
               <ChatSequence />
             </div>
           </div>

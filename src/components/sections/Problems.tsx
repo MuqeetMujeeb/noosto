@@ -54,7 +54,7 @@ export const Problems = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 + 0.2 }}
               whileHover={{ scale: 1.02 }}
-              className="p-8 rounded-2xl bg-muted/40 border border-border/50 hover:border-border/80 transition-all flex flex-col gap-4"
+              className="p-8 rounded-2xl bg-muted/40 border border-border/50 hover:border-white/20 hover:shadow-[0_0_30px_rgba(131,58,180,0.15)] hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4"
             >
               <div className="w-12 h-12 rounded-xl bg-background border border-border flex items-center justify-center shadow-sm">
                 {problem.icon}
