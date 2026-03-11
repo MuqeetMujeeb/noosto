@@ -26,7 +26,7 @@ export const StepsSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-32 bg-zinc-950 relative overflow-hidden">
+    <section id="how-it-works" className="py-32 bg-background relative overflow-hidden">
       {/* Decorative gradient lines */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       
@@ -64,7 +64,7 @@ export const StepsSection = () => {
               transition={{ delay: i * 0.2 }}
               className="relative flex flex-col items-center text-center"
             >
-              <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center text-2xl font-bold text-primary mb-8 relative z-10 shadow-xl">
+              <div className="w-16 h-16 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 flex items-center justify-center text-2xl font-bold text-primary mb-8 relative z-10 shadow-xl">
                 {step.num}
               </div>
               <h3 className="text-2xl font-semibold text-white mb-4">{step.title}</h3>

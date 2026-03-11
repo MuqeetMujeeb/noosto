@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 export const CTASection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-zinc-950">
+    <section className="py-24 relative overflow-hidden bg-background">
       <div className="absolute inset-0 bg-primary/10" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[120px] rounded-full" />
       
@@ -14,7 +14,7 @@ export const CTASection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-12 md:p-20 shadow-2xl"
+          className="bg-white/[0.02] backdrop-blur-2xl border border-white/5 rounded-[3rem] p-12 md:p-20 shadow-2xl"
         >
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-white">
             Stop typing. <br />
@@ -26,7 +26,7 @@ export const CTASection = () => {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium text-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_-10px_rgba(var(--primary),0.5)] hover:shadow-[0_0_60px_-15px_rgba(var(--primary),0.6)] hover:scale-105 active:scale-95">
-              Connect Your Account
+              Join Waitlist
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <p className="text-sm text-zinc-500 mt-4 sm:hidden">No credit card required</p>

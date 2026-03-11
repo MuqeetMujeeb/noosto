@@ -73,7 +73,7 @@ export const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       {/* Background Gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-background to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-50" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -95,7 +95,7 @@ export const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
-              Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">24/7 Sales Machine.</span>
+              Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary/80">24/7 Sales Machine.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
@@ -132,14 +132,14 @@ export const Hero = () => {
             className="relative mx-auto w-full max-w-[320px] lg:max-w-[360px] perspective-1000"
           >
             {/* Phone Body */}
-            <div className="relative rounded-[2.5rem] bg-zinc-950 border-[8px] border-zinc-900 shadow-2xl overflow-hidden aspect-[9/19] flex flex-col">
+            <div className="relative rounded-[2.5rem] bg-background border-[8px] border-zinc-900 shadow-2xl overflow-hidden aspect-[9/19] flex flex-col">
               {/* Dynamic Island / Notch */}
               <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-20">
                 <div className="w-32 h-6 bg-zinc-900 rounded-b-3xl"></div>
               </div>
 
               {/* Chat Header */}
-              <div className="bg-zinc-950/80 backdrop-blur-md pt-12 pb-4 px-6 border-b border-white/10 z-10 flex items-center justify-between">
+              <div className="bg-background/80 backdrop-blur-md pt-12 pb-4 px-6 border-b border-white/10 z-10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/30">
                     <Bot className="w-5 h-5" />
@@ -162,7 +162,7 @@ export const Hero = () => {
               </div>
 
               {/* Chat Messages */}
-              <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto bg-zinc-950/50 relative hide-scrollbar pb-6 justify-end">
+              <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto bg-background/50 relative hide-scrollbar pb-6 justify-end">
                 {messages.map((msg) => (
                   <AnimatePresence key={`msg-${key}-${msg.id}`}>
                     {visibleMessages.includes(msg.id) && (
@@ -231,8 +231,8 @@ export const Hero = () => {
               </div>
 
               {/* Chat Input */}
-              <div className="p-3 bg-zinc-900/50 backdrop-blur-md border-t border-white/5 mx-2 mb-2 rounded-2xl flex items-center gap-2 relative z-10 bottom-0">
-                <div className="flex-1 bg-zinc-800 rounded-xl h-10 px-3 flex items-center border border-white/5">
+              <div className="p-3 bg-zinc-900/60 backdrop-blur-md border border-white/10 mx-2 mb-2 rounded-2xl flex items-center gap-2 relative z-10 bottom-0 shadow-lg">
+                <div className="flex-1 bg-zinc-800/80 rounded-xl h-10 px-3 flex items-center border border-white/5">
                   <span className="text-zinc-500 text-xs">Message...</span>
                 </div>
                 <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center text-primary">

@@ -23,7 +23,7 @@ export const ProblemSection = () => {
   ];
 
   return (
-    <section id="problem" className="py-24 bg-zinc-950/50 relative">
+    <section id="problem" className="py-24 bg-background relative">
       <div className="absolute inset-0 bg-grid-white/[0.02]" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -55,7 +55,7 @@ export const ProblemSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 + 0.2 }}
-              className="group relative p-8 rounded-3xl bg-zinc-900 border border-white/10 hover:border-primary/50 transition-colors"
+              className="group relative p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:border-primary/50 transition-colors backdrop-blur-md"
             >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6">

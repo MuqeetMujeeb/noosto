@@ -8,7 +8,7 @@ const features = [
     title: "AI Autoreply",
     description: "Understands natural language. It doesn't just match keywords, it understands context and nuance to provide helpful answers instantly.",
     icon: Bot,
-    className: "md:col-span-2 md:row-span-2 bg-gradient-to-br from-zinc-900 to-zinc-950",
+    className: "md:col-span-2 md:row-span-2 bg-gradient-to-br from-zinc-900/50 to-zinc-950/50 backdrop-blur-md",
     visual: (
       <div className="mt-6 flex flex-col gap-3">
         <div className="bg-zinc-800 p-3 rounded-lg text-sm text-zinc-300 ml-auto max-w-[80%]">Does this run small? Im usually a M</div>
@@ -23,19 +23,19 @@ const features = [
     title: "Instant Checkout Links",
     description: "Send payment links directly in the chat when they're ready to buy.",
     icon: LinkIcon,
-    className: "md:col-span-1 md:row-span-1 bg-zinc-900",
+    className: "md:col-span-1 md:row-span-1 bg-white/[0.02] backdrop-blur-md",
   },
   {
     title: "Auto Order Tracking",
     description: "Customers ask 'where is my order?', Noosto looks it up and replies automatically.",
     icon: Package,
-    className: "md:col-span-1 md:row-span-1 bg-zinc-900",
+    className: "md:col-span-1 md:row-span-1 bg-white/[0.02] backdrop-blur-md",
   },
   {
     title: "CRM Auto-Sync",
     description: "Every DM conversation is automatically logged to your built-in CRM.",
     icon: Database,
-    className: "md:col-span-2 md:row-span-1 bg-zinc-900",
+    className: "md:col-span-2 md:row-span-1 bg-white/[0.02] backdrop-blur-md",
   }
 ];
 
