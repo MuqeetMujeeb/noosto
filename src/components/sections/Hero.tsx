@@ -99,7 +99,7 @@ export const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
-              Turn your DMs into a <span className="text-instagram">24/7 Sales Machine.</span>
+              Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">24/7 Sales Machine.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
@@ -172,10 +172,10 @@ export const Hero = () => {
                     visibleMessages.includes(msg.id) && (
                       <motion.div
                         key={`msg-${key}-${msg.id}`}
-                        layout
+                        layout="position"
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        transition={{ type: "spring", stiffness: 450, damping: 25, mass: 0.8 }}
                         className={`flex mb-4 ${msg.role === "customer" ? "justify-end" : "justify-start"}`}
                       >
                         <div
@@ -206,11 +206,11 @@ export const Hero = () => {
                   {isTyping && (
                     <motion.div
                       key="typing-indicator"
-                      layout
+                      layout="position"
                       initial={{ opacity: 0, y: 20, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                      transition={{ type: "spring", stiffness: 450, damping: 25, mass: 0.8 }}
                       className="flex justify-start mb-4"
                     >
                       <div className="bg-zinc-800 rounded-2xl rounded-tl-sm px-4 py-3 border border-white/5 w-fit shadow-sm">
@@ -242,14 +242,14 @@ export const Hero = () => {
                 <div className="flex-1 bg-zinc-800/80 rounded-xl h-10 px-3 flex items-center border border-white/5">
                   <span className="text-zinc-500 text-xs">Message...</span>
                 </div>
-                <div className="w-10 h-10 bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 rounded-xl flex items-center justify-center text-[#fd1d1d]">
+                <div className="w-10 h-10 bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] rounded-xl flex items-center justify-center text-white shadow-md">
                   <Send className="w-4 h-4 ml-0.5" />
                 </div>
               </div>
             </div>
             
             {/* Decorative blurs behind phone */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#833ab4]/20 blur-[100px] -z-10 rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 blur-[100px] -z-10 rounded-full" />
           </motion.div>
         </div>
       </div>
