@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Send, User, Bot, RotateCcw } from "lucide-react";
+import { Send, Bot, RotateCcw } from "lucide-react";
 
 const messages = [
   {
@@ -37,24 +37,28 @@ export const Hero = () => {
   const [key, setKey] = useState(0);
 
   useEffect(() => {
-    let timeouts: NodeJS.Timeout[] = [];
+    const timeouts: NodeJS.Timeout[] = [];
     
     const runAnimation = () => {
       setVisibleMessages([]);
       setIsTyping(false);
       
       messages.forEach((msg) => {
-        // Show typing indicator before message appears
-        timeouts.push(
-          setTimeout(() => {
-            setIsTyping(true);
-          }, (msg.delay - 0.7) * 1000)
-        );
+        if (msg.role === "bot") {
+          // Show typing indicator before bot message appears
+          timeouts.push(
+            setTimeout(() => {
+              setIsTyping(true);
+            }, (msg.delay - 1.5) * 1000)
+          );
+        }
 
         // Hide typing and show message
         timeouts.push(
           setTimeout(() => {
-            setIsTyping(false);
+            if (msg.role === "bot") {
+              setIsTyping(false);
+            }
             setVisibleMessages((prev) => [...prev, msg.id]);
           }, msg.delay * 1000)
         );
@@ -162,15 +166,17 @@ export const Hero = () => {
               </div>
 
               {/* Chat Messages */}
-              <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto bg-background/50 relative hide-scrollbar pb-6 justify-end">
-                {messages.map((msg) => (
-                  <AnimatePresence key={`msg-${key}-${msg.id}`}>
-                    {visibleMessages.includes(msg.id) && (
+              <div className="flex-1 p-4 flex flex-col justify-end gap-0 overflow-y-auto bg-background/50 relative hide-scrollbar pb-6">
+                <AnimatePresence initial={false}>
+                  {messages.map((msg) => (
+                    visibleMessages.includes(msg.id) && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        key={`msg-${key}-${msg.id}`}
+                        layout
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ duration: 0.3, type: "spring", stiffness: 200, damping: 20 }}
-                        className={`flex ${msg.role === "customer" ? "justify-end" : "justify-start"}`}
+                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        className={`flex mb-4 ${msg.role === "customer" ? "justify-end" : "justify-start"}`}
                       >
                         <div
                           className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
@@ -193,20 +199,21 @@ export const Hero = () => {
                           )}
                         </div>
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                ))}
+                    )
+                  ))}
 
-                {/* Typing Indicator */}
-                <AnimatePresence>
+                  {/* Typing Indicator */}
                   {isTyping && (
                     <motion.div
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="flex justify-start"
+                      key="typing-indicator"
+                      layout
+                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                      className="flex justify-start mb-4"
                     >
-                      <div className="bg-zinc-800 rounded-2xl rounded-tl-sm px-4 py-3 border border-white/5 w-fit">
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-sm px-4 py-3 border border-white/5 w-fit shadow-sm">
                         <div className="flex gap-1.5 items-center">
                           <motion.div
                             animate={{ y: [0, -3, 0] }}

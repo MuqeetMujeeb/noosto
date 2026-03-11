@@ -44,7 +44,7 @@ export const FeaturesSection = () => {
     <section id="features" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -71,14 +71,14 @@ export const FeaturesSection = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{feature.description}</p>
-                
+
                 {feature.visual && (
                   <div className="mt-8 flex-1">
                     {feature.visual}
                   </div>
                 )}
               </div>
-              
+
               {/* Subtle hover gradient */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
