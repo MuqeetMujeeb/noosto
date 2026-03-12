@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { LogosSection } from "@/components/sections/LogosSection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { StepsSection } from "@/components/sections/StepsSection";
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1 w-full overflow-hidden">
         <Hero />
+        <LogosSection />
         <ProblemSection />
         <FeaturesSection />
         <StepsSection />
