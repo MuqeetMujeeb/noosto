@@ -4,61 +4,62 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Send, Bot, RotateCcw } from "lucide-react";
 
-const messages = [
+const scenarios = [
   {
-    id: 1,
-    role: "customer",
-    text: "Hi! Is the Blue hoodie still in stock?",
-    delay: 1,
+    name: "Sales",
+    messages: [
+      { id: 1, role: "customer", text: "Hi! Is the Blue hoodie still in stock?", delay: 1 },
+      { id: 2, role: "bot", text: "Yes! 3 left in XL. Want to order one?", delay: 2.5 },
+      { id: 3, role: "customer", text: "Yes please!", delay: 4 },
+      { id: 4, role: "bot", text: "Great! Use this link to checkout: noosto.kr/pay 🚀", delay: 5.5 },
+    ]
   },
   {
-    id: 2,
-    role: "bot",
-    text: "Yes! 3 left in XL. Want to order one?",
-    delay: 2.5,
+    name: "Support",
+    messages: [
+      { id: 1, role: "customer", text: "Hey! Can I get an update on order #4402?", delay: 1 },
+      { id: 2, role: "bot", text: "Checking... 🔍 It's with the courier and arrives tomorrow!", delay: 2.5 },
+      { id: 3, role: "customer", text: "Awesome, thanks!", delay: 4 },
+      { id: 4, role: "bot", text: "You're welcome! Use code 'HAPPY' for 10% off next time. ✨", delay: 5.5 },
+    ]
   },
   {
-    id: 3,
-    role: "customer",
-    text: "Yes please!",
-    delay: 4,
-  },
-  {
-    id: 4,
-    role: "bot",
-    text: "Great! Use this link to checkout: noosto.kr/pay 🚀",
-    delay: 5.5,
-  },
+    name: "Size Guide",
+    messages: [
+      { id: 1, role: "customer", text: "Do these run true to size? I'm a 10.", delay: 1 },
+      { id: 2, role: "bot", text: "They run small! I'd recommend a 10.5 for the best fit. 👟", delay: 2.8 },
+      { id: 3, role: "customer", text: "Got it, I'll take the 10.5!", delay: 4.5 },
+      { id: 4, role: "bot", text: "Perfect! Ready to checkout?", delay: 6 },
+    ]
+  }
 ];
 
 export const Hero = () => {
+  const [scenarioIndex, setScenarioIndex] = useState(0); // Track current scenario
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [key, setKey] = useState(0);
 
+  // Get current messages based on index
+  const currentMessages = scenarios[scenarioIndex].messages;
+
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
-    
+
     const runAnimation = () => {
       setVisibleMessages([]);
       setIsTyping(false);
-      
-      messages.forEach((msg) => {
+
+      currentMessages.forEach((msg) => {
         if (msg.role === "bot") {
-          // Show typing indicator before bot message appears
           timeouts.push(
-            setTimeout(() => {
-              setIsTyping(true);
-            }, (msg.delay - 1.5) * 1000)
+            setTimeout(() => setIsTyping(true), (msg.delay - 1.2) * 1000)
           );
         }
 
-        // Hide typing and show message
         timeouts.push(
           setTimeout(() => {
-            if (msg.role === "bot") {
-              setIsTyping(false);
-            }
+            if (msg.role === "bot") setIsTyping(false);
             setVisibleMessages((prev) => [...prev, msg.id]);
           }, msg.delay * 1000)
         );
@@ -66,16 +67,16 @@ export const Hero = () => {
     };
 
     runAnimation();
+    return () => timeouts.forEach(clearTimeout);
+  }, [key, scenarioIndex]); // Restart when key OR scenario changes
 
-    return () => {
-      timeouts.forEach(clearTimeout);
-    };
-  }, [key]);
-
-  const replay = () => setKey(k => k + 1);
+  const nextScenario = () => {
+    setScenarioIndex((prev) => (prev + 1) % scenarios.length);
+    setKey(k => k + 1);
+  };
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+    <section id="product" className="relative pt-32 pb-20 md:pt-32 md:pb-15 overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[#833ab4]/20 blur-[120px] mix-blend-screen" />
@@ -100,15 +101,15 @@ export const Hero = () => {
               </span>
               Noosto Chat Automation
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
               Turn your DMs into a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">24/7 Sales Machine.</span>
             </h1>
-            
+
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
               Stop losing sales to slow replies. Noosto automatically answers customer questions, sends payment links, and confirms orders—so you can focus on growing, not chatting.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
               <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95">
                 Start Selling Automatically
@@ -117,7 +118,7 @@ export const Hero = () => {
                 See How It Works
               </button>
             </div>
-            
+
             <div className="flex items-center justify-center lg:justify-start gap-4 mt-4 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
@@ -126,7 +127,7 @@ export const Hero = () => {
                   </div>
                 ))}
               </div>
-              <p>Trusted by 500+ social sellers</p>
+              <p>Join Early Access for Noosto</p>
             </div>
           </motion.div>
 
@@ -159,11 +160,12 @@ export const Hero = () => {
                     </p>
                   </div>
                 </div>
-                <button 
-                  onClick={replay}
-                  className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-colors"
-                  title="Replay Animation"
+                <button
+                  onClick={nextScenario}
+                  className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-colors flex items-center gap-2"
+                  title="Next Example"
                 >
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Try Next</span>
                   <RotateCcw className="w-4 h-4" />
                 </button>
               </div>
@@ -171,7 +173,7 @@ export const Hero = () => {
               {/* Chat Messages */}
               <div className="flex-1 p-4 flex flex-col justify-end gap-0 overflow-y-auto bg-background/50 relative hide-scrollbar pb-6">
                 <AnimatePresence initial={false}>
-                  {messages.map((msg) => (
+                  {currentMessages.map((msg) => (
                     visibleMessages.includes(msg.id) && (
                       <motion.div
                         key={`msg-${key}-${msg.id}`}
@@ -182,11 +184,10 @@ export const Hero = () => {
                         className={`flex mb-4 ${msg.role === "customer" ? "justify-end" : "justify-start"}`}
                       >
                         <div
-                          className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
-                            msg.role === "customer"
+                          className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[13px] leading-relaxed shadow-sm ${msg.role === "customer"
                             ? "bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-tr-sm"
-                              : "bg-zinc-800 text-zinc-100 rounded-tl-sm border border-white/5"
-                          }`}
+                            : "bg-zinc-800 text-zinc-100 rounded-tl-sm border border-white/5"
+                            }`}
                         >
                           {msg.role === "bot" && (
                             <div className="flex items-center gap-1.5 mb-1 opacity-70">
@@ -250,7 +251,7 @@ export const Hero = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Decorative blurs behind phone */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 blur-[100px] -z-10 rounded-full" />
           </motion.div>

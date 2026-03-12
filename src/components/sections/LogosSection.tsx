@@ -16,7 +16,7 @@ export const LogosSection = () => {
     <section className="py-12 border-y border-white/5 bg-black/20">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-center text-zinc-500 text-sm font-medium mb-8 uppercase tracking-widest">
-          Trusted by 500+ D2C Brands & Creators
+          Designed for social commerce
         </p>
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
           {logos.map((logo, i) => (

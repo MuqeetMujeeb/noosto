@@ -10,25 +10,35 @@ const LiveAutoReplyFeed = () => {
 
   useEffect(() => {
     let isActive = true;
-    let messageId = 0;
+    let sequenceIndex = 0;
+
+    const chatSequences = [
+      { q: "Do you ship to Canada?", a: "We do! Shipping takes 5-7 days via standard international." },
+      { q: "Is the Blue Hoodie in stock?", a: "Yes! We have 3 left in Size XL. Want a link to order?" },
+      { q: "Does the M run small?", a: "It's true to size! If you prefer an oversized fit, we suggest an L." },
+      { q: "Got any discount codes?", a: "Use code HUSTLE10 at checkout for 10% off your first order! 🚀" }
+    ];
 
     const runSequence = async () => {
-      await new Promise(r => setTimeout(r, 800));
-
+      await new Promise(r => setTimeout(r, 1000));
       while (isActive) {
-        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: "Do you ship to Canada?", sender: 'user' }]);
-
-        await new Promise(r => setTimeout(r, 600));
-        if (!isActive) break;
-
-        setIsTyping(true);
+        const current = chatSequences[sequenceIndex];
+        // User sends query
+        setMessages(prev => [...prev.slice(-2), { id: Math.random(), text: current.q, sender: 'user' }]);
         await new Promise(r => setTimeout(r, 1200));
         if (!isActive) break;
 
-        setIsTyping(false);
-        setMessages(prev => [...prev.slice(-2), { id: messageId++, text: "We do! Shipping takes 5-7 days.", sender: 'bot' }]);
+        // Bot starts typing
+        setIsTyping(true);
+        await new Promise(r => setTimeout(r, 1500));
+        if (!isActive) break;
 
-        await new Promise(r => setTimeout(r, 3500));
+        // Bot sends reply
+        setIsTyping(false);
+        setMessages(prev => [...prev.slice(-2), { id: Math.random(), text: current.a, sender: 'bot' }]);
+        await new Promise(r => setTimeout(r, 4000));
+
+        sequenceIndex = (sequenceIndex + 1) % chatSequences.length;
         if (!isActive) break;
       }
     };
@@ -38,48 +48,59 @@ const LiveAutoReplyFeed = () => {
   }, []);
 
   return (
-    <motion.div
-      layout
-      className="relative w-full overflow-hidden flex flex-col justify-end mt-4 min-h-[160px]"
-      style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%, black)' }}
-    >
-      <motion.div layout className="flex flex-col justify-end gap-3 z-10 w-full pb-1">
+    <div className="relative w-full h-[200px] mt-4 overflow-hidden flex flex-col justify-end">
+      {/* Mask for fading out top messages */}
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-[#0c0c0e] via-transparent to-transparent h-12" />
+
+      <div className="flex flex-col justify-end gap-3 p-1">
         <AnimatePresence mode="popLayout" initial={false}>
           {messages.map((msg) => (
             <motion.div
               layout
               key={msg.id}
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              initial={{ opacity: 0, y: 15, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
-              className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-md ${msg.sender === 'user'
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+                mass: 1
+              }}
+              className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-lg ${msg.sender === 'user'
                 ? 'bg-zinc-800/80 border border-white/10 text-white ml-auto rounded-tr-sm'
-                : 'bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white mr-auto rounded-tl-sm relative overflow-hidden group border border-white/10'
+                : 'bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white mr-auto rounded-tl-sm border border-white/10'
                 }`}
             >
-              <div className="flex gap-2 items-start relative z-10">
-                {msg.sender === 'bot' && <Bot className="w-4 h-4 shrink-0 mt-0.5 text-white/90" />}
-                <p className="leading-snug text-white font-medium drop-shadow-sm">{msg.text}</p>
+              <div className="flex gap-2 items-start">
+                {msg.sender === 'bot' && <Bot className="w-4 h-4 shrink-0 mt-0.5" />}
+                <p className="leading-snug font-medium">{msg.text}</p>
               </div>
             </motion.div>
           ))}
+
           {isTyping && (
             <motion.div
               layout
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              key="typing"
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               className="bg-zinc-800/80 border border-white/10 rounded-2xl rounded-tl-sm p-3 mr-auto w-16 h-10 flex items-center justify-center gap-1 shadow-md"
             >
-              <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0 }} className="w-1.5 h-1.5 bg-zinc-400 rounded-full" />
-              <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }} className="w-1.5 h-1.5 bg-zinc-400 rounded-full" />
-              <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }} className="w-1.5 h-1.5 bg-zinc-400 rounded-full" />
+              {[0, 0.2, 0.4].map((delay) => (
+                <motion.div
+                  key={delay}
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.8, delay }}
+                  className="w-1.5 h-1.5 bg-zinc-400 rounded-full"
+                />
+              ))}
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 

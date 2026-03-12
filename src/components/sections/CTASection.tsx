@@ -8,7 +8,7 @@ export const CTASection = () => {
     <section className="py-24 relative overflow-hidden bg-background">
       <div className="absolute inset-0 bg-[#833ab4]/10" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#fd1d1d]/20 blur-[120px] rounded-full" />
-      
+
       <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,9 +21,9 @@ export const CTASection = () => {
             <span className="text-instagram">Start selling.</span>
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto lead-relaxed">
-            Join 500+ sellers who automated their DMs and multiplied their sales. Get started in under 5 minutes.
+            Stop replying manually. Automate your DMs and turn every message into a potential sale.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95">
               Join Waitlist

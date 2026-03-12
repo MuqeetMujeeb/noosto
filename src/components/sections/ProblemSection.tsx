@@ -29,13 +29,14 @@ export const ProblemSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+
   return (
     <section id="problem" className="py-24 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.02]" />
-      
+
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -43,7 +44,7 @@ export const ProblemSection = () => {
           >
             Social selling is broken.
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -76,20 +77,39 @@ export const ProblemSection = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-white">The Old Way</h3>
               </div>
-              
+
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-2 opacity-70">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-white">Incoming DM</span>
-                    <span className="text-xs text-red-400">Waiting 2 hrs...</span>
-                  </div>
-                  <p className="text-sm text-zinc-400">&quot;How much is this?&quot;</p>
-                  <div className="h-8 rounded flex items-center justify-center text-xs font-medium bg-red-500/10 text-red-500 border border-red-500/20">
-                    Lost Sale
-                  </div>
+                <div className="relative mb-12">
+                  <motion.div
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="p-4 rounded-xl bg-zinc-900 border border-white/5 flex flex-col gap-2 relative z-10 shadow-lg"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-white">Incoming DM</span>
+                      <span className="text-xs text-red-400">Waiting 2 hrs...</span>
+                    </div>
+                    <p className="text-sm text-zinc-400">&quot;How much is this?&quot;</p>
+                    <div className="h-8 rounded flex items-center justify-center text-xs font-medium bg-red-400/10 text-red-500 border border-red-500/20">
+                      Lost Sale
+                    </div>
+                  </motion.div>
+
+                  {/* Background dummy card */}
+                  <motion.div
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 4, delay: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -bottom-6 right-4 left-4 p-4 rounded-xl bg-zinc-900/50 border border-white/5 flex flex-col gap-2 -z-10 scale-95 opacity-50 blur-[1px]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-white">Incoming DM</span>
+                      <span className="text-xs text-red-400/50">Waiting 5 hrs...</span>
+                    </div>
+                    <p className="text-sm text-zinc-400/50">&quot;Do you ship to UK?&quot;</p>
+                  </motion.div>
                 </div>
-                
-                <ul className="space-y-3 mt-8">
+
+                <ul className="space-y-3 pt-6 border-t border-white/5">
                   {["Manually copy-pasting answers", "Ghosting customers while asleep", "Not enough time to run ads", "Sales lost to faster competitors"].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-zinc-400">
                       <XCircle className="w-4 h-4 text-red-500/50 flex-shrink-0" />
@@ -115,23 +135,22 @@ export const ProblemSection = () => {
               {/* Live Automation Feed */}
               <div className="space-y-3 relative">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-[#833ab4]/10 via-[#fd1d1d]/10 to-[#fcb045]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
+
                 {feedItems.map((item, i) => (
-                  <motion.div 
+                  <motion.div
                     layout
                     key={item.id}
-                    className={`relative z-10 p-4 rounded-xl border flex items-center justify-between gap-4 transition-all duration-300 ${
-                      item.status === 'replied' 
-                        ? 'bg-green-500/10 border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.1)]' 
-                        : 'bg-white/5 border-white/5'
-                    }`}
+                    className={`relative z-10 p-4 rounded-xl border flex items-center justify-between gap-4 transition-all duration-300 ${item.status === 'replied'
+                      ? 'bg-green-500/10 border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.1)]'
+                      : 'bg-white/5 border-white/5'
+                      }`}
                   >
                     <div className="flex items-center gap-3 truncate">
                       <MessageCircle className={`w-4 h-4 flex-shrink-0 ${item.status === 'replied' ? 'text-green-500' : 'text-zinc-500'}`} />
                       <p className={`text-sm truncate ${item.status === 'replied' ? 'text-green-100' : 'text-zinc-400'}`}>"{item.text}"</p>
                     </div>
                     {item.status === 'replied' ? (
-                      <motion.span 
+                      <motion.span
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         className="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-green-500 text-black flex-shrink-0"

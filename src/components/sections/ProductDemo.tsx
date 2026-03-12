@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function ProductDemo() {
   return (
-    <section id="demo" className="py-24 bg-background">
+    <section id="product" className="pt-8 pb-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -24,7 +24,7 @@ export function ProductDemo() {
               app.noosto.com
             </div>
           </div>
-          
+
           {/* Mock Video Content */}
           <div className="w-full h-full pt-12 bg-gradient-to-br from-primary/5 via-background to-primary/10 flex items-center justify-center relative">
             <div className="text-center z-10">
@@ -37,7 +37,7 @@ export function ProductDemo() {
             </div>
 
             {/* Decorative background grid */}
-            <div 
+            <div
               className="absolute inset-x-0 bottom-0 top-12 opacity-[0.03] pointer-events-none"
               style={{
                 backgroundImage: 'radial-gradient(circle at center, var(--color-foreground) 1px, transparent 1px)',

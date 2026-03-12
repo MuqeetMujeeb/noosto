@@ -33,11 +33,11 @@ const StepItem = ({ step, index }: { step: Step; index: number }) => {
       {/* Large Background Number */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full text-center flex justify-center text-[8rem] md:text-[12rem] lg:text-[14rem] font-black leading-none select-none -z-10 tracking-tighter">
         <span className="text-zinc-900 absolute top-0">{step.num}</span>
-        <motion.div 
-          className="absolute top-0 overflow-hidden" 
+        <motion.div
+          className="absolute top-0 overflow-hidden"
           style={{ height }}
         >
-          <motion.span 
+          <motion.span
             className="block text-transparent bg-clip-text bg-gradient-to-b from-[#833ab4]/40 via-[#fd1d1d]/30 to-[#fcb045]/20"
             style={{ opacity }}
           >
@@ -81,7 +81,7 @@ export const StepsSection = () => {
     <section id="how-it-works" className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Decorative gradient lines */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-[#fd1d1d]/30 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
           <motion.div
@@ -92,7 +92,7 @@ export const StepsSection = () => {
           >
             Setup in 5 minutes
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
