@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useWaitlist } from "@/context/WaitlistContext";
 
 export const CTASection = () => {
+  const { openWaitlist } = useWaitlist();
+
   return (
     <section className="py-24 relative overflow-hidden bg-background">
       <div className="absolute inset-0 bg-[#833ab4]/10" />
@@ -25,7 +28,10 @@ export const CTASection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95">
+            <button 
+              onClick={() => openWaitlist()}
+              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95"
+            >
               Join Waitlist
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>

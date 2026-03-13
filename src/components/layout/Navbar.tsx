@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MessageSquare, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useWaitlist } from "@/context/WaitlistContext";
 
 const links = [
   { name: "Product", href: "#product" },
@@ -14,6 +15,7 @@ const links = [
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const { openWaitlist } = useWaitlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,7 +94,10 @@ export const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 px-4 py-2 rounded-full text-sm font-medium transition-colors shadow-[0_0_15px_rgba(253,29,29,0.3)]">
+          <button 
+            onClick={() => openWaitlist()}
+            className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 px-4 py-2 rounded-full text-sm font-medium transition-colors shadow-[0_0_15px_rgba(253,29,29,0.3)]"
+          >
             Join Waitlist
           </button>
         </div>
@@ -128,7 +133,13 @@ export const Navbar = () => {
             ))}
             
             <hr className="my-2 border-border/40" />
-            <button className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 px-4 py-2 rounded-lg text-sm font-medium w-full shadow-[0_0_15px_rgba(253,29,29,0.3)]" onClick={() => setMobileMenuOpen(false)}>
+            <button 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openWaitlist();
+              }}
+              className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 px-4 py-2 rounded-lg text-sm font-medium w-full shadow-[0_0_15px_rgba(253,29,29,0.3)]" 
+            >
               Join Waitlist
             </button>
           </motion.div>

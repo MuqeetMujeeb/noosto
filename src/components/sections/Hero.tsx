@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Send, Bot, RotateCcw } from "lucide-react";
+import { useWaitlist } from "@/context/WaitlistContext";
 
 const scenarios = [
   {
@@ -39,6 +40,7 @@ export const Hero = () => {
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [key, setKey] = useState(0);
+  const { openWaitlist } = useWaitlist();
 
   // Get current messages based on index
   const currentMessages = scenarios[scenarioIndex].messages;
@@ -111,7 +113,10 @@ export const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
-              <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95">
+              <button 
+                onClick={() => openWaitlist()}
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-[0_0_20px_rgba(253,29,29,0.3)] hover:shadow-[0_0_30px_rgba(253,29,29,0.5)] hover:scale-105 active:scale-95"
+              >
                 Start Selling Automatically
               </button>
               <button className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground rounded-full font-medium text-lg hover:bg-secondary/80 transition-all">
